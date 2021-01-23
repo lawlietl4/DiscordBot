@@ -59,19 +59,13 @@ client.on('message', message => {
                 client.commands.get('ban').execute(message, args);
                 break;
             case 'reset':
-                if (message.content.toLowerCase()) {
-                    resetBot(message.channel);
-                }
-
-                
+                client.commands.get('reset').execute(message,args);
+                break;
+            case 'shutdown':
+                client.commands.get('shutdown').execute(message.args);
+                break;
         }
     }
 });
-
-function resetBot(channel) {
-    channel.send('Resetting...')
-        .then(msg => client.destroy())
-        .then(() => client.login(token));
-}
 
 client.login(token);
