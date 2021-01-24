@@ -61,9 +61,6 @@ client.on('message', message => {
             case 'reset':
                 client.commands.get('reset').execute(message,args);
                 break;
-            case 'shutdown':
-                client.commands.get('shutdown').execute(message.args);
-                break;
         }
     }
 });
