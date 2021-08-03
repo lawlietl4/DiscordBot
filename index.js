@@ -1,28 +1,29 @@
-const fs = require('fs');
+const fs = require('fs'); //enables file reading for commands that are in their own files
 
-const Discord = require('discord.js');
+const Discord = require('discord.js'); //this is the brains of all the discord operations and can be installed with yarn install discord.js or npm install discord.js
+//it should also be setup to have yarn/npm install work
 
 const {
     prefix,
     token
-} = require('./config.json');
+} = require('./config.json'); //prefix is anything that proceeds your command and token is what it says it is lol
 
-const client = new Discord.Client();
+const client = new Discord.Client(); //makes a new Discord client connection
 
-client.commands = new Discord.Collection();
+client.commands = new Discord.Collection(); //makes a collection of the commands in the discord bot's memory
 
-const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js'));
+const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.js')); //reads every file that ends in .js in the specified directory
 
 for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
     // set a new item in the Collection
     // with the key as the command name and the value as the exported module
     client.commands.set(command.name, command);
-}
+} //allows the calling of all commands in the directory
 
 client.on('ready', () => {
     console.log('Bot is online!');
-});
+}); //if bot started then you get a message that it did
 
 client.on('message', message => {
     // console.log(message.content);
@@ -63,6 +64,6 @@ client.on('message', message => {
                 break;
         }
     }
-});
+}); //these were my commands but the cases and their subsequent commands can be changed
 
-client.login(token);
+client.login(token); //logs the bot into your server/DM's
